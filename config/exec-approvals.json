@@ -18,7 +18,14 @@
       { "pattern": "/usr/bin/ls" },
       { "pattern": "/usr/bin/mkdir" },
       { "pattern": "/usr/bin/cp" },
-      { "pattern": "/usr/bin/mv" }
+      { "pattern": "/usr/bin/mv" },
+      { "pattern": "/usr/bin/head" },
+      { "pattern": "/usr/bin/tail" },
+      { "pattern": "/usr/bin/wc" },
+      { "pattern": "/usr/bin/sort" },
+      { "pattern": "/usr/bin/grep" },
+      { "pattern": "/usr/bin/find" },
+      { "pattern": "/usr/bin/echo" }
     ]
   }
 }
