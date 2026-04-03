@@ -34,48 +34,48 @@ exec su -s /bin/sh node << 'NODEEOF'
   openclaw config set tools.exec.ask on-miss
 
   # ── LAYER 3: Host exec-approvals via official CLI ────────────────
-  # Add both full path AND wildcard pattern for each binary.
-  # OpenClaw may match by resolved path or by command name depending on version.
-  # Adding both covers all cases. Duplicates are harmless.
+  # Three pattern forms per binary to cover all matching strategies:
+  #   1. Full path:  /usr/bin/curl     (resolved path match)
+  #   2. Wildcard:   */curl            (glob match)
+  #   3. Bare name:  curl              (basename match, may be ignored in some versions)
+  # Duplicates and rejected entries are harmless.
   
   # curl
   openclaw approvals allowlist add "/usr/bin/curl"
   openclaw approvals allowlist add "*/curl"
+  openclaw approvals allowlist add "curl" 2>/dev/null || true
   # document generation scripts
   openclaw approvals allowlist add "/usr/local/bin/generate-pdf.sh"
   openclaw approvals allowlist add "*/generate-pdf.sh"
+  openclaw approvals allowlist add "generate-pdf.sh" 2>/dev/null || true
   openclaw approvals allowlist add "/usr/local/bin/generate-excel.sh"
   openclaw approvals allowlist add "*/generate-excel.sh"
+  openclaw approvals allowlist add "generate-excel.sh" 2>/dev/null || true
   openclaw approvals allowlist add "/usr/local/bin/generate-docx.sh"
   openclaw approvals allowlist add "*/generate-docx.sh"
+  openclaw approvals allowlist add "generate-docx.sh" 2>/dev/null || true
   openclaw approvals allowlist add "/usr/local/bin/send-to-discord.sh"
   openclaw approvals allowlist add "*/send-to-discord.sh"
+  openclaw approvals allowlist add "send-to-discord.sh" 2>/dev/null || true
   # python & libreoffice
   openclaw approvals allowlist add "/usr/bin/python3"
   openclaw approvals allowlist add "*/python3"
+  openclaw approvals allowlist add "python3" 2>/dev/null || true
   openclaw approvals allowlist add "/usr/bin/libreoffice"
   openclaw approvals allowlist add "*/libreoffice"
-  # common utils
-  openclaw approvals allowlist add "/usr/bin/jq"
-  openclaw approvals allowlist add "*/jq"
-  openclaw approvals allowlist add "/usr/bin/cat"
-  openclaw approvals allowlist add "/usr/bin/ls"
-  openclaw approvals allowlist add "/usr/bin/mkdir"
-  openclaw approvals allowlist add "/usr/bin/cp"
-  openclaw approvals allowlist add "/usr/bin/mv"
-  openclaw approvals allowlist add "/usr/bin/head"
-  openclaw approvals allowlist add "/usr/bin/tail"
-  openclaw approvals allowlist add "/usr/bin/wc"
-  openclaw approvals allowlist add "/usr/bin/sort"
-  openclaw approvals allowlist add "/usr/bin/grep"
-  openclaw approvals allowlist add "/usr/bin/find"
-  openclaw approvals allowlist add "/usr/bin/echo"
-  # bash/sh (needed when OpenClaw wraps commands in sh -c)
+  openclaw approvals allowlist add "libreoffice" 2>/dev/null || true
+  # common utils (full path + bare name)
+  for cmd in jq cat ls mkdir cp mv head tail wc sort grep find echo; do
+    openclaw approvals allowlist add "/usr/bin/$cmd"
+    openclaw approvals allowlist add "*/$cmd"
+    openclaw approvals allowlist add "$cmd" 2>/dev/null || true
+  done
+  # bash/sh for shell wrapping
   openclaw approvals allowlist add "/bin/sh"
   openclaw approvals allowlist add "/bin/bash"
   openclaw approvals allowlist add "/usr/bin/bash"
-  openclaw approvals allowlist add "*/sh"
-  openclaw approvals allowlist add "*/bash"
+  openclaw approvals allowlist add "sh" 2>/dev/null || true
+  openclaw approvals allowlist add "bash" 2>/dev/null || true
 
   echo "✅ Tools: coding profile enabled"
   echo "✅ Exec: host=gateway, security=allowlist, ask=on-miss"

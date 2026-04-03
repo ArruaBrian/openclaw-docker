@@ -4,28 +4,45 @@
     "security": "allowlist",
     "ask": "on-miss",
     "askFallback": "deny",
-    "autoAllowSkills": true,
-    "allowlist": [
-      { "pattern": "/usr/bin/curl" },
-      { "pattern": "/usr/local/bin/generate-pdf.sh" },
-      { "pattern": "/usr/local/bin/generate-excel.sh" },
-      { "pattern": "/usr/local/bin/generate-docx.sh" },
-      { "pattern": "/usr/local/bin/send-to-discord.sh" },
-      { "pattern": "/usr/bin/python3" },
-      { "pattern": "/usr/bin/libreoffice" },
-      { "pattern": "/usr/bin/jq" },
-      { "pattern": "/usr/bin/cat" },
-      { "pattern": "/usr/bin/ls" },
-      { "pattern": "/usr/bin/mkdir" },
-      { "pattern": "/usr/bin/cp" },
-      { "pattern": "/usr/bin/mv" },
-      { "pattern": "/usr/bin/head" },
-      { "pattern": "/usr/bin/tail" },
-      { "pattern": "/usr/bin/wc" },
-      { "pattern": "/usr/bin/sort" },
-      { "pattern": "/usr/bin/grep" },
-      { "pattern": "/usr/bin/find" },
-      { "pattern": "/usr/bin/echo" }
-    ]
+    "autoAllowSkills": true
+  },
+  "agents": {
+    "*": {
+      "security": "allowlist",
+      "ask": "on-miss",
+      "allowlist": [
+        { "pattern": "/usr/bin/curl" },
+        { "pattern": "*/curl" },
+        { "pattern": "/usr/local/bin/generate-pdf.sh" },
+        { "pattern": "*/generate-pdf.sh" },
+        { "pattern": "/usr/local/bin/generate-excel.sh" },
+        { "pattern": "*/generate-excel.sh" },
+        { "pattern": "/usr/local/bin/generate-docx.sh" },
+        { "pattern": "*/generate-docx.sh" },
+        { "pattern": "/usr/local/bin/send-to-discord.sh" },
+        { "pattern": "*/send-to-discord.sh" },
+        { "pattern": "/usr/bin/python3" },
+        { "pattern": "*/python3" },
+        { "pattern": "/usr/bin/libreoffice" },
+        { "pattern": "*/libreoffice" },
+        { "pattern": "/usr/bin/jq" },
+        { "pattern": "*/jq" },
+        { "pattern": "/usr/bin/cat" },
+        { "pattern": "/usr/bin/ls" },
+        { "pattern": "/usr/bin/mkdir" },
+        { "pattern": "/usr/bin/cp" },
+        { "pattern": "/usr/bin/mv" },
+        { "pattern": "/usr/bin/head" },
+        { "pattern": "/usr/bin/tail" },
+        { "pattern": "/usr/bin/wc" },
+        { "pattern": "/usr/bin/sort" },
+        { "pattern": "/usr/bin/grep" },
+        { "pattern": "/usr/bin/find" },
+        { "pattern": "/usr/bin/echo" },
+        { "pattern": "/bin/sh" },
+        { "pattern": "/bin/bash" },
+        { "pattern": "/usr/bin/bash" }
+      ]
+    }
   }
 }
