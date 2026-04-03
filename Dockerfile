@@ -43,6 +43,9 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 COPY scripts/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/*.sh
 
+# ── Bootstrap workspace with AGENTS.md ─────────────────────────────
+COPY workspace/AGENTS.md /home/node/workspace/AGENTS.md
+
 # ── Fix permissions once at build time ─────────────────────────────
 RUN mkdir -p /home/node/.openclaw /home/node/workspace \
     && chown -R 1000:1000 /home/node/.openclaw /home/node/workspace
