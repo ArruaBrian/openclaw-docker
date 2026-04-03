@@ -4,36 +4,21 @@
     "security": "allowlist",
     "ask": "on-miss",
     "askFallback": "deny",
-    "autoAllowSkills": true
-  },
-  "agents": {
-    "main": {
-      "security": "allowlist",
-      "ask": "on-miss",
-      "askFallback": "deny",
-      "autoAllowSkills": true,
-      "allowlist": [
-        {
-          "pattern": "/usr/bin/curl",
-          "lastUsedCommand": "curl"
-        },
-        {
-          "pattern": "/usr/local/bin/generate-*.sh",
-          "lastUsedCommand": "generate-pdf.sh"
-        },
-        {
-          "pattern": "/usr/local/bin/send-to-discord.sh",
-          "lastUsedCommand": "send-to-discord.sh"
-        },
-        {
-          "pattern": "/usr/bin/python3",
-          "lastUsedCommand": "python3"
-        },
-        {
-          "pattern": "/usr/bin/libreoffice",
-          "lastUsedCommand": "libreoffice --headless"
-        }
-      ]
-    }
+    "autoAllowSkills": true,
+    "allowlist": [
+      { "pattern": "/usr/bin/curl" },
+      { "pattern": "/usr/local/bin/generate-pdf.sh" },
+      { "pattern": "/usr/local/bin/generate-excel.sh" },
+      { "pattern": "/usr/local/bin/generate-docx.sh" },
+      { "pattern": "/usr/local/bin/send-to-discord.sh" },
+      { "pattern": "/usr/bin/python3" },
+      { "pattern": "/usr/bin/libreoffice" },
+      { "pattern": "/usr/bin/jq" },
+      { "pattern": "/usr/bin/cat" },
+      { "pattern": "/usr/bin/ls" },
+      { "pattern": "/usr/bin/mkdir" },
+      { "pattern": "/usr/bin/cp" },
+      { "pattern": "/usr/bin/mv" }
+    ]
   }
 }
