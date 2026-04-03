@@ -15,14 +15,14 @@ openclaw config set gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback t
 openclaw config set browser.enabled true
 openclaw config set browser.cdpUrl http://127.0.0.1:9222
 
-# ── Apply exec approvals (allowlist mode) ──────────────────────────
-# security=allowlist: only allowlisted binaries run without asking
-# ask=on-miss: anything NOT in allowlist prompts for approval
-openclaw approvals defaults set security allowlist
-openclaw approvals defaults set ask on-miss
-openclaw approvals defaults set askFallback deny
-
-echo "✅ Exec approvals configured: allowlist + ask on-miss"
+# ── Exec approvals ─────────────────────────────────────────────────
+# exec-approvals.json is bind-mounted from ./config/ into ~/.openclaw/
+# OpenClaw reads it automatically on gateway start — no CLI needed
+if [ -f /home/node/.openclaw/exec-approvals.json ]; then
+  echo "✅ exec-approvals.json loaded (allowlist mode, ask on-miss)"
+else
+  echo "⚠️  No exec-approvals.json found — using OpenClaw defaults"
+fi
 
 echo "🚀 Starting OpenClaw gateway..."
 exec openclaw gateway --allow-unconfigured --bind lan
