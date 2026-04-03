@@ -39,22 +39,23 @@ RUN pip3 install --no-cache-dir --break-system-packages \
     # Jinja2 for document templates
     jinja2
 
-# ── Helper scripts for Discord file sending ────────────────────────
+# ── Helper scripts ─────────────────────────────────────────────────
 COPY scripts/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/*.sh
 
-# ── Bootstrap workspace with AGENTS.md ─────────────────────────────
-COPY workspace/AGENTS.md /home/node/workspace/AGENTS.md
+# ── Stage config files (copied to correct location at runtime) ─────
+COPY config/exec-approvals.json /opt/openclaw-config/exec-approvals.json
+COPY workspace/AGENTS.md /opt/openclaw-config/AGENTS.md
 
 # ── Fix permissions once at build time ─────────────────────────────
 RUN mkdir -p /home/node/.openclaw /home/node/workspace \
     && chown -R 1000:1000 /home/node/.openclaw /home/node/workspace
 
-# ── Entrypoint that configures and launches ────────────────────────
+# ── Entrypoint runs as root, drops to node ─────────────────────────
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-USER node
 EXPOSE 18789
 
+# Run as root — entrypoint handles permission fix then drops to node
 ENTRYPOINT ["/entrypoint.sh"]
