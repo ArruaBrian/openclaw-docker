@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "defaults": {
+    "security": "allowlist",
+    "ask": "on-miss",
+    "askFallback": "deny",
+    "autoAllowSkills": true
+  },
+  "agents": {
+    "main": {
+      "security": "allowlist",
+      "ask": "on-miss",
+      "askFallback": "deny",
+      "autoAllowSkills": true,
+      "allowlist": [
+        {
+          "pattern": "/usr/bin/curl",
+          "lastUsedCommand": "curl"
+        },
+        {
+          "pattern": "/usr/local/bin/generate-*.sh",
+          "lastUsedCommand": "generate-pdf.sh"
+        },
+        {
+          "pattern": "/usr/local/bin/send-to-discord.sh",
+          "lastUsedCommand": "send-to-discord.sh"
+        },
+        {
+          "pattern": "/usr/bin/python3",
+          "lastUsedCommand": "python3"
+        },
+        {
+          "pattern": "/usr/bin/libreoffice",
+          "lastUsedCommand": "libreoffice --headless"
+        }
+      ]
+    }
+  }
+}

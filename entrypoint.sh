@@ -15,11 +15,14 @@ openclaw config set gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback t
 openclaw config set browser.enabled true
 openclaw config set browser.cdpUrl http://127.0.0.1:9222
 
-# ── Apply auto-approve config if present ───────────────────────────
-if [ -f /home/node/.openclaw/allowlist.json ]; then
-  echo "✅ Allowlist found, applying auto-approve rules..."
-  # OpenClaw reads this from its config dir automatically
-fi
+# ── Apply exec approvals (allowlist mode) ──────────────────────────
+# security=allowlist: only allowlisted binaries run without asking
+# ask=on-miss: anything NOT in allowlist prompts for approval
+openclaw approvals defaults set security allowlist
+openclaw approvals defaults set ask on-miss
+openclaw approvals defaults set askFallback deny
+
+echo "✅ Exec approvals configured: allowlist + ask on-miss"
 
 echo "🚀 Starting OpenClaw gateway..."
 exec openclaw gateway --allow-unconfigured --bind lan

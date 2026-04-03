@@ -10,8 +10,8 @@ services:
       # Persistent data — survives rebuilds and redeploys
       - openclaw-data:/home/node/.openclaw
       - openclaw-workspace:/home/node/workspace
-      # Allowlist config (bind mount so you can edit it easily)
-      - ./config/allowlist.json:/home/node/.openclaw/allowlist.json:ro
+      # Exec approvals config (bind mount so you can edit without rebuild)
+      - ./config/exec-approvals.json:/home/node/.openclaw/exec-approvals.json
     environment:
       - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}

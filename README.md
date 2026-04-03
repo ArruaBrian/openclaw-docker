@@ -21,21 +21,31 @@ docker compose up -d
 - **Auto-approve allowlist** — edit `config/allowlist.json`
 - **Persistent volumes** — data and workspace survive rebuilds
 
-## Auto-Approve
+## Exec Approvals (Command Security)
 
-Edit `config/allowlist.json` to add tools that should run without asking:
+OpenClaw uses `exec-approvals.json` to control which commands run automatically vs which ones ask first.
+
+Edit `config/exec-approvals.json` to manage the allowlist. Patterns are glob paths to binaries:
 
 ```json
 {
-  "autoApprove": [
-    "read_file",
-    "list_directory",
-    "your_custom_tool"
-  ]
+  "agents": {
+    "main": {
+      "security": "allowlist",
+      "ask": "on-miss",
+      "allowlist": [
+        { "pattern": "/usr/bin/curl" },
+        { "pattern": "/usr/local/bin/generate-*.sh" },
+        { "pattern": "/usr/bin/python3" }
+      ]
+    }
+  }
 }
 ```
 
-Tools NOT in the list will still prompt for confirmation.
+- Commands matching allowlist patterns → run without asking
+- Commands NOT in allowlist → prompt for approval (ask: on-miss)
+- No rebuild needed — the file is bind-mounted
 
 ## Document Generation Scripts (available inside container)
 
