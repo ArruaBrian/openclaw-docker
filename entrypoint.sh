@@ -34,16 +34,30 @@ exec su -s /bin/sh node << 'NODEEOF'
   openclaw config set tools.exec.ask on-miss
 
   # ── LAYER 3: Host exec-approvals via official CLI ────────────────
-  # Add each binary to the allowlist using the official CLI command
-  # These run without approval. Everything else prompts.
+  # Add both full path AND wildcard pattern for each binary.
+  # OpenClaw may match by resolved path or by command name depending on version.
+  # Adding both covers all cases. Duplicates are harmless.
+  
+  # curl
   openclaw approvals allowlist add "/usr/bin/curl"
+  openclaw approvals allowlist add "*/curl"
+  # document generation scripts
   openclaw approvals allowlist add "/usr/local/bin/generate-pdf.sh"
+  openclaw approvals allowlist add "*/generate-pdf.sh"
   openclaw approvals allowlist add "/usr/local/bin/generate-excel.sh"
+  openclaw approvals allowlist add "*/generate-excel.sh"
   openclaw approvals allowlist add "/usr/local/bin/generate-docx.sh"
+  openclaw approvals allowlist add "*/generate-docx.sh"
   openclaw approvals allowlist add "/usr/local/bin/send-to-discord.sh"
+  openclaw approvals allowlist add "*/send-to-discord.sh"
+  # python & libreoffice
   openclaw approvals allowlist add "/usr/bin/python3"
+  openclaw approvals allowlist add "*/python3"
   openclaw approvals allowlist add "/usr/bin/libreoffice"
+  openclaw approvals allowlist add "*/libreoffice"
+  # common utils
   openclaw approvals allowlist add "/usr/bin/jq"
+  openclaw approvals allowlist add "*/jq"
   openclaw approvals allowlist add "/usr/bin/cat"
   openclaw approvals allowlist add "/usr/bin/ls"
   openclaw approvals allowlist add "/usr/bin/mkdir"
@@ -55,10 +69,17 @@ exec su -s /bin/sh node << 'NODEEOF'
   openclaw approvals allowlist add "/usr/bin/sort"
   openclaw approvals allowlist add "/usr/bin/grep"
   openclaw approvals allowlist add "/usr/bin/find"
+  openclaw approvals allowlist add "/usr/bin/echo"
+  # bash/sh (needed when OpenClaw wraps commands in sh -c)
+  openclaw approvals allowlist add "/bin/sh"
+  openclaw approvals allowlist add "/bin/bash"
+  openclaw approvals allowlist add "/usr/bin/bash"
+  openclaw approvals allowlist add "*/sh"
+  openclaw approvals allowlist add "*/bash"
 
   echo "✅ Tools: coding profile enabled"
   echo "✅ Exec: host=gateway, security=allowlist, ask=on-miss"
-  echo "✅ Allowlist: 19 binaries added via 'openclaw approvals allowlist add'"
+  echo "✅ Allowlist: binaries added via 'openclaw approvals allowlist add'"
   echo "🚀 Starting OpenClaw gateway..."
   exec openclaw gateway --allow-unconfigured --bind lan
 NODEEOF
