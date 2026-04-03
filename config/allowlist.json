@@ -1,0 +1,11 @@
+{
+  "_comment": "Tools in 'autoApprove' run without confirmation. Everything else still asks.",
+  "autoApprove": [
+    "read_file",
+    "list_directory",
+    "search_files",
+    "web_search",
+    "web_fetch",
+    "curl"
+  ]
+}
