@@ -44,7 +44,6 @@ COPY scripts/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/*.sh
 
 # ── Stage config files (copied to correct location at runtime) ─────
-COPY config/exec-approvals.json /opt/openclaw-config/exec-approvals.json
 COPY workspace/AGENTS.md /opt/openclaw-config/AGENTS.md
 
 # ── Fix permissions once at build time ─────────────────────────────
